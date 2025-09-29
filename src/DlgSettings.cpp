@@ -126,6 +126,7 @@ DWORD DlgSettings::HandleDriver( uint32_t type )
             if (Message::ShowQuestion( _hwnd, L"Would you like to enable Driver Test signing mode to load driver?" ))
             {
                 STARTUPINFOW si = { 0 };
+                si.cb = sizeof( si );
                 PROCESS_INFORMATION pi = { 0 };
                 wchar_t windir[255] = { 0 };
                 PVOID oldVal = nullptr;
@@ -136,7 +137,9 @@ DWORD DlgSettings::HandleDriver( uint32_t type )
                 Wow64DisableWow64FsRedirection( &oldVal );
 
                 // For some reason running BCDedit directly does not enable test signing from WOW64 process
-                if (CreateProcessW( bcdpath.c_str(), L"/C Bcdedit.exe -set TESTSIGNING ON", NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ))
+                std::wstring cmdLine = L"/C Bcdedit.exe -set TESTSIGNING ON";
+
+                if (CreateProcessW( bcdpath.c_str(), cmdLine.data(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ))
                 {
                     Message::ShowWarning( _hwnd, L"You must reboot your computer for the changes to take effect" );
 

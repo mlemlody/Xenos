@@ -5,14 +5,8 @@
     <ClCompile Include="DlgModules.cpp">
       <Filter>Interface\ModuleView</Filter>
     </ClCompile>
-    <ClCompile Include="FileUtil.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="InjectionCore.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Routines.cpp">
-      <Filter>Interface</Filter>
+    <ClCompile Include="DlgSettings.cpp">
+      <Filter>Interface\Settings</Filter>
     </ClCompile>
     <ClCompile Include="DlgWait.cpp">
       <Filter>Interface\ProcessWait</Filter>
@@ -20,14 +14,20 @@
     <ClCompile Include="DumpHandler.cpp">
       <Filter>Dump</Filter>
     </ClCompile>
-    <ClCompile Include="DlgSettings.cpp">
-      <Filter>Interface\Settings</Filter>
+    <ClCompile Include="FileUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="InjectionCore.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="MainDlg.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="ProfileMgr.cpp">
       <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="Routines.cpp">
+      <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

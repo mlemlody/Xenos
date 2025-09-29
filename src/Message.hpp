@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "Log.h"
 
+#include <iostream>
+
 class Message
 {
     enum MsgType
@@ -14,6 +16,11 @@ class Message
     };
 
 public:
+    static void EnableConsoleMode( bool enabled )
+    {
+        s_consoleMode = enabled;
+    }
+
     static void ShowError( HWND parent, const std::wstring& msg, const std::wstring& title = L"Error" )
     {
         Show( msg, title, Error, parent );
@@ -65,6 +72,20 @@ private:
         if (logLevel < xlog::LogLevel::verbose)
             xlog::Logger::Instance().DoLog( logLevel, "%ls", msg.c_str() );
 
+        if (s_consoleMode)
+        {
+            std::wostream& stream = (type == Error || type == Warning) ? std::wcerr : std::wcout;
+            stream << title << L": " << msg << std::endl;
+
+            if (type == Question)
+                return IDNO;
+
+            return IDOK;
+        }
+
         return MessageBoxW( parent, msg.c_str(), title.c_str(), uType );
     }
+
+private:
+    inline static bool s_consoleMode = false;
 };

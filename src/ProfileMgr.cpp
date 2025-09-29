@@ -13,7 +13,10 @@ bool ProfileMgr::Save( const std::wstring& path /*= L""*/)
         xml.create_document();
 
         for (auto& imgpath : _config.images)
-            xml.append( L"XenosConfig.imagePath" ).value( imgpath );
+        {
+            auto node = xml.append( L"XenosConfig.imagePath" );
+            node.value( imgpath );
+        }
 
         xml.set( L"XenosConfig.manualMapFlags", _config.mmapFlags );
         xml.set( L"XenosConfig.procName",       _config.procName.c_str() );
@@ -57,7 +60,7 @@ bool ProfileMgr::Load( const std::wstring& path /*= L""*/ )
         if(xml.has( L"XenosConfig.imagePath" ))
         {
             auto nodes = xml.all_nodes_named( L"XenosConfig.imagePath" );
-            for (auto& node : nodes)
+            for (auto node : nodes)
                 _config.images.emplace_back( node.value() );
         }
 
